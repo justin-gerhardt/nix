@@ -1,0 +1,138 @@
+diff --git a/src/config/configuration.h b/src/config/configuration.h
+index dd02c7f..75d4176 100644
+--- a/src/config/configuration.h
++++ b/src/config/configuration.h
+@@ -57,6 +57,8 @@ bool config_IsSafe (const char *);
+ 
+ /* The configuration file */
+ #define CONFIG_FILE                     "vlcrc"
++#define DEFAULT_CONFIG_FILE                     "vlcrc-default"
++
+ 
+ # ifdef __cplusplus
+ }
+diff --git a/src/config/file.c b/src/config/file.c
+index 4545d06..13678c5 100644
+--- a/src/config/file.c
++++ b/src/config/file.c
+@@ -53,10 +53,8 @@ static inline char *strdupnull (const char *src)
+     return src ? strdup (src) : NULL;
+ }
+ 
+-/**
+- * Get the user's configuration file
+- */
+-static char *config_GetConfigFile( vlc_object_t *obj )
++
++static char *config_GetFile( vlc_object_t *obj, const char* name )
+ {
+     char *psz_file = var_CreateGetNonEmptyString( obj, "config" );
+     var_Destroy( obj, "config" );
+@@ -64,13 +62,30 @@ static char *config_GetConfigFile( vlc_object_t *obj )
+     {
+         char *psz_dir = config_GetUserDir( VLC_CONFIG_DIR );
+ 
+-        if( asprintf( &psz_file, "%s" DIR_SEP CONFIG_FILE, psz_dir ) == -1 )
++        if( asprintf( &psz_file, "%s" DIR_SEP "%s", psz_dir, name ) == -1 )
+             psz_file = NULL;
+         free( psz_dir );
+     }
+     return psz_file;
+ }
+ 
++/**
++ * Get the user's configuration file
++ */
++static char *config_GetConfigFile( vlc_object_t *obj )
++{
++    return config_GetFile(obj, CONFIG_FILE);
++}
++
++/**
++ * Get the user's default configuration file
++ */
++static char *config_GetDefaultConfigFile( vlc_object_t *obj )
++{
++        return config_GetFile(obj, DEFAULT_CONFIG_FILE);
++
++}
++
+ static FILE *config_OpenConfigFile( vlc_object_t *p_obj )
+ {
+     char *psz_filename = config_GetConfigFile( p_obj );
+@@ -138,6 +153,26 @@ static FILE *config_OpenConfigFile( vlc_object_t *p_obj )
+ }
+ 
+ 
++
++static FILE *config_OpenDefaultConfigFile( vlc_object_t *p_obj )
++{
++    char *psz_filename = config_GetDefaultConfigFile( p_obj );
++    if( psz_filename == NULL )
++        return NULL;
++
++    msg_Dbg( p_obj, "opening config file (%s)", psz_filename );
++
++    FILE *p_stream = vlc_fopen( psz_filename, "rt" );
++    if( p_stream == NULL )
++    {
++        msg_Dbg( p_obj, "cannot open config file (%s): %s",
++                 psz_filename, vlc_strerror_c(errno) );
++
++    }
++    free( psz_filename );
++    return p_stream;
++}
++
+ static int64_t vlc_strtoi (const char *str)
+ {
+     char *end;
+@@ -159,18 +194,9 @@ static int64_t vlc_strtoi (const char *str)
+     return l;
+ }
+ 
+-#undef config_LoadConfigFile
+-/*****************************************************************************
+- * config_LoadConfigFile: loads the configuration file.
+- *****************************************************************************
+- * This function is called to load the config options stored in the config
+- * file.
+- *****************************************************************************/
+-int config_LoadConfigFile( vlc_object_t *p_this )
+-{
+-    FILE *file;
+ 
+-    file = config_OpenConfigFile (p_this);
++int config_LoadConfigFromFile( vlc_object_t *p_this, FILE* file)
++{
+     if (file == NULL)
+         return VLC_EGENERIC;
+ 
+@@ -260,6 +286,27 @@ int config_LoadConfigFile( vlc_object_t *p_this )
+     return 0;
+ }
+ 
++
++#undef config_LoadConfigFile
++/*****************************************************************************
++ * config_LoadConfigFile: loads the configuration file.
++ *****************************************************************************
++ * This function is called to load the config options stored in the config
++ * file.
++ *****************************************************************************/
++int config_LoadConfigFile( vlc_object_t *p_this )
++{
++    FILE *file;
++    file = config_OpenDefaultConfigFile(p_this);
++    if (file != NULL)
++        config_LoadConfigFromFile(p_this, file);
++
++    file = config_OpenConfigFile (p_this);
++    if (file == NULL)
++        return VLC_EGENERIC;
++    return config_LoadConfigFromFile(p_this, file);
++}
++
+ /*****************************************************************************
+  * config_CreateDir: Create configuration directory if it doesn't exist.
+  *****************************************************************************/

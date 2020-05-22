@@ -1,0 +1,104 @@
+diff --git a/modules/gui/qt/GerhardtSettings.cpp b/modules/gui/qt/GerhardtSettings.cpp
+new file mode 100644
+index 0000000..fc66513
+--- /dev/null
++++ b/modules/gui/qt/GerhardtSettings.cpp
+@@ -0,0 +1,23 @@
++
++#include "GerhardtSettings.hpp"
++
++GerhardtSettings::GerhardtSettings(
++    QSettings::Format format,
++    QSettings::Scope scope,
++    const QString &organization,
++    const QString &application,
++    QObject *parent)
++:  QSettings(format, scope, organization, application, parent){
++    QString* fallbackName = new QString(application);
++    fallbackName->append("-default");
++    defaultFallback = new QSettings(format, scope, organization, *fallbackName, parent);
++}
++
++QVariant GerhardtSettings::value(const QString &key, const QVariant &defaultValue) const {
++    if (QSettings::contains(key)){
++        return QSettings::value(key, defaultValue);
++    }
++    return defaultFallback->value(key, defaultValue);
++}
++
++
+diff --git a/modules/gui/qt/GerhardtSettings.hpp b/modules/gui/qt/GerhardtSettings.hpp
+new file mode 100644
+index 0000000..2d11753
+--- /dev/null
++++ b/modules/gui/qt/GerhardtSettings.hpp
+@@ -0,0 +1,22 @@
++
++#include <QSettings>
++#include <QString>
++#include <QObject>
++#include <QVariant>
++
++class GerhardtSettings : public QSettings
++{
++    private: 
++    QSettings* defaultFallback;
++    public:
++    // using QSettings::QSettings;
++
++    GerhardtSettings(
++        QSettings::Format format,
++        QSettings::Scope scope,
++        const QString &organization,
++        const QString &application = QString(),
++        QObject *parent = nullptr);
++
++    QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;
++};
+diff --git a/modules/gui/qt/Makefile.am b/modules/gui/qt/Makefile.am
+index c67f4af..a71500f 100644
+--- a/modules/gui/qt/Makefile.am
++++ b/modules/gui/qt/Makefile.am
+@@ -40,6 +40,7 @@ libqt_plugin_la_CPPFLAGS += -DUPDATE_CHECK
+ endif
+ 
+ libqt_plugin_la_SOURCES = \
++	gui/qt/GerhardtSettings.cpp gui/qt/GerhardtSettings.hpp \
+ 	gui/qt/qt.cpp gui/qt/qt.hpp \
+ 	gui/qt/menus.cpp gui/qt/menus.hpp \
+ 	gui/qt/main_interface.cpp gui/qt/main_interface.hpp \
+diff --git a/modules/gui/qt/qt.cpp b/modules/gui/qt/qt.cpp
+index ab912fd..b1842d8 100644
+--- a/modules/gui/qt/qt.cpp
++++ b/modules/gui/qt/qt.cpp
+@@ -548,7 +548,7 @@ static void *ThreadPlatform( void *obj, char *platform_name )
+     QSettings::setPath( QSettings::IniFormat, QSettings::UserScope, configDir );
+ #endif
+ 
+-    p_sys->mainSettings = new QSettings(
++    p_sys->mainSettings = new GerhardtSettings(
+ #ifdef _WIN32
+             QSettings::IniFormat,
+ #else
+diff --git a/modules/gui/qt/qt.hpp b/modules/gui/qt/qt.hpp
+index e1bea2f..f8085b1 100644
+--- a/modules/gui/qt/qt.hpp
++++ b/modules/gui/qt/qt.hpp
+@@ -33,6 +33,8 @@
+ #include <vlc_interface.h> /* intf_thread_t */
+ #include <vlc_playlist.h>  /* playlist_t */
+ 
++#include "GerhardtSettings.hpp"
++
+ #include <qconfig.h>
+ 
+ #ifdef QT_STATIC
+@@ -69,7 +71,7 @@ struct intf_sys_t
+ 
+     class QVLCApp *p_app;          /* Main Qt Application */
+     class MainInterface *p_mi;     /* Main Interface, NULL if DialogProvider Mode */
+-    class QSettings *mainSettings; /* Qt State settings not messing main VLC ones */
++    class GerhardtSettings *mainSettings; /* Qt State settings not messing main VLC ones */
+     class PLModel *pl_model;
+ 
+     QUrl filepath;        /* Last path used in dialogs */

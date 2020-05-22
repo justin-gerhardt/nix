@@ -1,0 +1,15 @@
+--- a/modules/gui/qt/input_manager.cpp	2017-11-24 10:29:17.000000000 -0500
++++ b/modules/gui/qt/input_manager.cpp	2020-05-22 09:01:45.824389440 -0400
+@@ -161,11 +161,9 @@
+     /* Save time / position */
+     char *uri = input_item_GetURI( p_item );
+     if( uri != NULL ) {
+-        float f_pos = var_GetFloat( p_input , "position" );
+         int64_t i_time = -1;
+ 
+-        if( f_pos >= 0.05f && f_pos <= 0.95f
+-         && var_GetInteger( p_input, "length" ) >= 60 * CLOCK_FREQ )
++        if( var_GetInteger( p_input, "length" ) >= 60 * CLOCK_FREQ )
+             i_time = var_GetInteger( p_input, "time");
+ 
+         RecentsMRL::getInstance( p_intf )->setTime( qfu(uri), i_time );
