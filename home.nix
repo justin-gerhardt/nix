@@ -77,6 +77,4 @@
 
   ];
 
-  home.sessionVariables = { };
-
 }

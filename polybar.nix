@@ -8,7 +8,7 @@
     always = false;
     notification = true;
   }];
-  
+
   services.polybar = {
     enable = true;
     package = pkgs.polybar.override { i3Support = true; };
