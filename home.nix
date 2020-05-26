@@ -41,7 +41,6 @@
     heroku
     postman
     jq
-    nixfmt
     pulsemixer
     youtube-dl
     # vlc
