@@ -8,7 +8,7 @@
   home.packages = [   
     (pkgs.vlc.overrideAttrs (oldAttrs: rec {
       patches = (if oldAttrs ? patches then oldAttrs.patches else [ ])
-        ++ [ ./resume.patch ./default_config.patch ./qt-settings.patch ];
+        ++ [ ./resume.patch ./default_config.patch ./qt-settings.patch ./show-chapters.patch ];
     }))
   ];
   xdg.configFile."vlc/vlcrc-default".text = ''

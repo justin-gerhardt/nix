@@ -1,0 +1,142 @@
+diff --git a/lib/media_player.c b/lib/media_player.c
+index a9a22fe..3ea517c 100644
+--- a/lib/media_player.c
++++ b/lib/media_player.c
+@@ -720,6 +720,11 @@ libvlc_media_player_new( libvlc_instance_t *instance )
+     var_Create (mp, "video-title-position", VLC_VAR_INTEGER);
+     var_Create (mp, "video-title-timeout", VLC_VAR_INTEGER);
+ 
++    /* Video chapter Title */
++    var_Create(mp, "video-chapter-title-show", VLC_VAR_BOOL);
++    var_Create(mp, "video-chapter-title-position", VLC_VAR_INTEGER);
++    var_Create(mp, "video-chapter-title-timeout", VLC_VAR_INTEGER);
++
+     /* Equalizer */
+     var_Create (mp, "equalizer-preamp", VLC_VAR_FLOAT);
+     var_Create (mp, "equalizer-vlcfreqs", VLC_VAR_BOOL);
+diff --git a/modules/gui/qt/input_manager.cpp b/modules/gui/qt/input_manager.cpp
+index 356cbea..efefcc6 100644
+--- a/modules/gui/qt/input_manager.cpp
++++ b/modules/gui/qt/input_manager.cpp
+@@ -78,7 +78,8 @@ InputManager::InputManager( MainInputManager *mim, intf_thread_t *_p_intf) :
+     timeB        = 0;
+     f_cache      = -1.; /* impossible initial value, different from all */
+     timeAtLastResumeSave = -1;
+-    registerAndCheckEventIds( IMEvent::PositionUpdate, IMEvent::FullscreenControlPlanHide );
++    previousChapter = -1;
++    registerAndCheckEventIds(IMEvent::PositionUpdate, IMEvent::FullscreenControlPlanHide);
+     registerAndCheckEventIds( PLEvent::PLItemAppended, PLEvent::PLEmpty );
+ }
+ 
+@@ -190,6 +191,7 @@ void InputManager::delInput()
+     timeB                = 0;
+     f_rate               = 0. ;
+     timeAtLastResumeSave = -1;
++    previousChapter      = -1;
+ 
+     if( p_input_vbi )
+     {
+@@ -224,6 +226,33 @@ void InputManager::delInput()
+     emit cachingChanged( 0.0 );
+ }
+ 
++void InputManager::showChapterTitle()
++{
++
++    vout_thread_t *outputThread = p_mim->getVout();
++    if (outputThread == NULL)
++        return;
++    if (!var_InheritBool(outputThread, "video-chapter-title-show"))
++        return;
++    vlc_value_t chapterIndex;
++    var_Get(VLC_OBJECT(p_input), "chapter", &chapterIndex);
++    if (previousChapter == chapterIndex.i_int)
++        return;
++    previousChapter = chapterIndex.i_int;
++    vlc_value_t ChapterValues, ChapterNames;
++    var_Change(VLC_OBJECT(p_input), "chapter", VLC_VAR_GETCHOICES, &ChapterValues, &ChapterNames);
++    char *chapterName = ChapterNames.p_list->p_values[chapterIndex.i_int].psz_string;
++
++    vout_OSDText(
++        outputThread,
++        VOUT_SPU_CHANNEL_OSD,
++        var_InheritInteger(outputThread, "video-chapter-title-position"),
++        INT64_C(1000) * var_InheritInteger(outputThread, "video-chapter-title-timeout"),
++        chapterName);
++
++    var_FreeList(&ChapterValues, &ChapterNames);
++}
++
+ /* Convert the event from the callbacks in actions */
+ void InputManager::customEvent( QEvent *event )
+ {
+@@ -268,6 +297,7 @@ void InputManager::customEvent( QEvent *event )
+         UpdateInfo();
+         break;
+     case IMEvent::ItemTitleChanged:
++        showChapterTitle();
+         UpdateNavigation();
+         UpdateName(); /* Display the name of the Chapter, if exists */
+         break;
+diff --git a/modules/gui/qt/input_manager.hpp b/modules/gui/qt/input_manager.hpp
+index 0e99c46..0be1682 100644
+--- a/modules/gui/qt/input_manager.hpp
++++ b/modules/gui/qt/input_manager.hpp
+@@ -158,6 +158,7 @@ private:
+     bool            b_video;
+     mtime_t         timeA, timeB;
+     int64_t         timeAtLastResumeSave;
++    int             previousChapter;
+ 
+     void customEvent( QEvent * );
+ 
+@@ -185,6 +186,7 @@ private:
+     void setInput( input_thread_t * );
+ 
+     void saveResumePosition();
++    void showChapterTitle();
+ 
+ public slots:
+     void inputChangedHandler(); ///< Our controlled input changed
+diff --git a/src/libvlc-module.c b/src/libvlc-module.c
+index df32e40..c363bcc 100644
+--- a/src/libvlc-module.c
++++ b/src/libvlc-module.c
+@@ -333,6 +333,19 @@ static const char *const ppsz_align_descriptions[] =
+ #define VIDEO_TITLE_POSITION_LONGTEXT N_( \
+     "Place on video where to display the title (default bottom center).")
+ 
++#define VIDEO_CHAPTER_TITLE_SHOW_TEXT N_("Show chapter title on video when changed")
++#define VIDEO_CHAPTER_TITLE_SHOW_LONGTEXT N_( \
++    "Display the chapter title of the video on top of the movie.")
++
++#define VIDEO_CHAPTER_TITLE_TIMEOUT_TEXT N_("Show chapter title for x milliseconds")
++#define VIDEO_CHAPTER_TITLE_TIMEOUT_LONGTEXT N_( \
++    "Show the chapter title for n milliseconds, default is 5000 ms (5 sec.)")
++
++#define VIDEO_CHAPTER_TITLE_POSITION_TEXT N_("Position of chapter title")
++#define VIDEO_CHAPTER_TITLE_POSITION_LONGTEXT N_( \
++    "Place on video where to display the chapter (default bottom center).")
++
++
+ #define MOUSE_HIDE_TIMEOUT_TEXT N_("Hide cursor and fullscreen " \
+                                    "controller after x milliseconds")
+ #define MOUSE_HIDE_TIMEOUT_LONGTEXT N_( \
+@@ -1592,6 +1605,17 @@ vlc_module_begin ()
+                  VIDEO_TITLE_POSITION_LONGTEXT, false )
+         change_safe()
+         change_integer_list( pi_pos_values, ppsz_pos_descriptions )
++
++    add_bool( "video-chapter-title-show", 1, VIDEO_CHAPTER_TITLE_SHOW_TEXT,
++            VIDEO_CHAPTER_TITLE_SHOW_LONGTEXT, false )
++        change_safe()
++    add_integer( "video-chapter-title-timeout", 5000, VIDEO_CHAPTER_TITLE_TIMEOUT_TEXT,
++                 VIDEO_CHAPTER_TITLE_TIMEOUT_LONGTEXT, false )
++        change_safe()
++    add_integer( "video-chapter-title-position", 8, VIDEO_CHAPTER_TITLE_POSITION_TEXT,
++                 VIDEO_CHAPTER_TITLE_POSITION_LONGTEXT, false )
++        change_safe()
++        change_integer_list( pi_pos_values, ppsz_pos_descriptions )
+     // autohide after 1 second
+     add_integer( "mouse-hide-timeout", 1000, MOUSE_HIDE_TIMEOUT_TEXT,
+                  MOUSE_HIDE_TIMEOUT_LONGTEXT, false )

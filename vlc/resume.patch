@@ -1,15 +1,114 @@
---- a/modules/gui/qt/input_manager.cpp	2017-11-24 10:29:17.000000000 -0500
-+++ b/modules/gui/qt/input_manager.cpp	2020-05-22 09:01:45.824389440 -0400
-@@ -161,11 +161,9 @@
-     /* Save time / position */
+diff --git a/modules/gui/qt/input_manager.cpp b/modules/gui/qt/input_manager.cpp
+index 51c5226..356cbea 100644
+--- a/modules/gui/qt/input_manager.cpp
++++ b/modules/gui/qt/input_manager.cpp
+@@ -77,6 +77,7 @@ InputManager::InputManager( MainInputManager *mim, intf_thread_t *_p_intf) :
+     timeA        = 0;
+     timeB        = 0;
+     f_cache      = -1.; /* impossible initial value, different from all */
++    timeAtLastResumeSave = -1;
+     registerAndCheckEventIds( IMEvent::PositionUpdate, IMEvent::FullscreenControlPlanHide );
+     registerAndCheckEventIds( PLEvent::PLItemAppended, PLEvent::PLEmpty );
+ }
+@@ -150,27 +151,34 @@ void InputManager::setInput( input_thread_t *_p_input )
+     }
+ }
+ 
+-/* delete Input if it ever existed.
+-   Delete the callbacls on input
+-   p_input is released once here */
+-void InputManager::delInput()
+-{
+-    if( !p_input ) return;
+-    msg_Dbg( p_intf, "IM: Deleting the input" );
+ 
+-    /* Save time / position */
++void InputManager::saveResumePosition(){
++     if( !p_input ) return;
      char *uri = input_item_GetURI( p_item );
      if( uri != NULL ) {
--        float f_pos = var_GetFloat( p_input , "position" );
+         float f_pos = var_GetFloat( p_input , "position" );
          int64_t i_time = -1;
  
 -        if( f_pos >= 0.05f && f_pos <= 0.95f
 -         && var_GetInteger( p_input, "length" ) >= 60 * CLOCK_FREQ )
-+        if( var_GetInteger( p_input, "length" ) >= 60 * CLOCK_FREQ )
++        if(var_GetInteger( p_input, "length" ) >= 60 * CLOCK_FREQ ){
              i_time = var_GetInteger( p_input, "time");
- 
+-
++            timeAtLastResumeSave = i_time;
++        }
++            
          RecentsMRL::getInstance( p_intf )->setTime( qfu(uri), i_time );
+         free(uri);
+     }
++}
++
++/* delete Input if it ever existed.
++   Delete the callbacls on input
++   p_input is released once here */
++void InputManager::delInput()
++{
++    if( !p_input ) return;
++    msg_Dbg( p_intf, "IM: Deleting the input" );
++
++    /* Save time / position */
++    saveResumePosition();
+ 
+     delCallbacks();
+     i_old_playing_status = END_S;
+@@ -181,6 +189,7 @@ void InputManager::delInput()
+     timeA                = 0;
+     timeB                = 0;
+     f_rate               = 0. ;
++    timeAtLastResumeSave = -1;
+ 
+     if( p_input_vbi )
+     {
+@@ -432,6 +441,10 @@ void InputManager::UpdatePosition()
+     int64_t i_length = var_GetInteger(  p_input , "length" );
+     int64_t i_time = var_GetInteger(  p_input , "time");
+     float f_pos = var_GetFloat(  p_input , "position" );
++    if (abs(i_time - timeAtLastResumeSave) > (10 * CLOCK_FREQ)){
++        // at least ten seconds since last save
++        saveResumePosition();
++    }
+     emit positionUpdated( f_pos, i_time, i_length / CLOCK_FREQ );
+ }
+ 
+diff --git a/modules/gui/qt/input_manager.hpp b/modules/gui/qt/input_manager.hpp
+index 728c1e7..0e99c46 100644
+--- a/modules/gui/qt/input_manager.hpp
++++ b/modules/gui/qt/input_manager.hpp
+@@ -157,6 +157,7 @@ private:
+     float           f_cache;
+     bool            b_video;
+     mtime_t         timeA, timeB;
++    int64_t         timeAtLastResumeSave;
+ 
+     void customEvent( QEvent * );
+ 
+@@ -183,6 +184,8 @@ private:
+ 
+     void setInput( input_thread_t * );
+ 
++    void saveResumePosition();
++
+ public slots:
+     void inputChangedHandler(); ///< Our controlled input changed
+     void sliderUpdate( float ); ///< User dragged the slider. We get new pos
+diff --git a/modules/gui/qt/recents.cpp b/modules/gui/qt/recents.cpp
+index 7ebc887..55a8714 100644
+--- a/modules/gui/qt/recents.cpp
++++ b/modules/gui/qt/recents.cpp
+@@ -176,8 +176,10 @@ int RecentsMRL::time( const QString &mrl )
+ void RecentsMRL::setTime( const QString &mrl, const int64_t time )
+ {
+     int i_index = recents.indexOf( mrl );
+-    if( i_index != -1 )
++    if( i_index != -1 ){
+         times[i_index] = QString::number( time / 1000 );
++        save();
++    }
+ }
+ 
+ int Open::openMRL( intf_thread_t *p_intf,
