@@ -48,7 +48,6 @@
     spotify
     xorg.xwininfo
     pstree
-    vscode
     google-chrome
     gdb
     feh
@@ -74,10 +73,7 @@
     lldb
     gdb
 
- #   (pkgs.vscode-with-extensions.override {
- #     # When the extension is already available in the default extensions set.
- #     vscodeExtensions = with vscode-extensions; [ ms-vscode.cpptools ];
- #   })
+    (callPackage ./vscode.nix { })
 
   ];
 
