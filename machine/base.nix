@@ -3,7 +3,7 @@ let
 private = import ../private;
 in
 {
-  imports = [ /etc/nixos/hardware-configuration.nix ../justin-home.nix ];
+  imports = [ /etc/nixos/hardware-configuration.nix ../user/base ];
 
   boot = {
     loader = {
@@ -25,22 +25,6 @@ in
 
   nix.trustedUsers = [ "root" "justin" ];
 
-  networking = {
-    hostName = "gerhardt-desktop";
-    hostId = "abcdef01";
-
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
-    # replicates the default behaviour.
-    useDHCP = false;
-    interfaces.enp30s0.useDHCP = true;
-    interfaces.enp42s0.useDHCP = true;
-    interfaces.wlp39s0.useDHCP = true;
-
-  };
-
-  systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
-    /root/zfs/mediakey;
   security.sudo.wheelNeedsPassword = false;
   time.timeZone = "America/Toronto";
 
@@ -98,11 +82,6 @@ in
       extraGroups = [ "wheel" "docker" "wireshark" ];
       shell = pkgs.fish;
     };
-    users.docker-media = {
-      uid = 973;
-      group = "docker-media";
-    };
-    groups.docker-media = { gid = 973; };
   };
 
   users.users.root.hashedPassword = private.userPasswordHashes.root;
@@ -116,8 +95,6 @@ in
 
   # programs.dconf.enable = true;
   i18n.defaultLocale = "en_CA.UTF-8";
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.docker.enable = true;
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark-qt;

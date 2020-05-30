@@ -19,7 +19,6 @@
   dconf.enable = true;
 
   fonts.fontconfig.enable = lib.mkForce true;
-  # fonts.fonts = with pkgs; [  ];
 
   imports =
     [ ./i3.nix ./vlc ./fish.nix ./polybar.nix ./wallpaper ./kdeconnect.nix ];
@@ -43,7 +42,6 @@
     jq
     pulsemixer
     youtube-dl
-    # vlc
     spotify
     xorg.xwininfo
     pstree
@@ -64,16 +62,15 @@
     rake
 
     iotop
-    ffmpeg
-    python38Packages.regex
-    mkvtoolnix
     gparted
 
     lldb
     gdb
+    file
 
+    (callPackage ./playlist-downloader.nix { })
     (callPackage ./vscode.nix { })
-
+    python3Packages.sphinx
   ];
 
 }
