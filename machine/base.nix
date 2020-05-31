@@ -70,7 +70,6 @@ in
         }];
       };
 
-      xrandrHeads = [ "DP-1" "DVI-D-1" ];
     };
     mingetty.autologinUser = "justin";
   };

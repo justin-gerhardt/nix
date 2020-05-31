@@ -3,7 +3,6 @@
 {
   imports = [ ../user/desktop ./base.nix ];
 
-
   networking = {
     hostName = "gerhardt-desktop";
     hostId = "abcdef01";
@@ -17,6 +16,8 @@
     interfaces.wlp39s0.useDHCP = true;
 
   };
+
+  services.xserver.xrandrHeads = [ "DP-1" "DVI-D-1" ];
 
   systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
     /root/zfs/mediakey;
