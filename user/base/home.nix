@@ -23,6 +23,9 @@
   imports =
     [ ./i3.nix ./vlc ./fish.nix ./polybar.nix ./wallpaper ./kdeconnect.nix ];
 
+
+  gerhardt.polybar.enable = true;
+
   home.packages = with pkgs; [
     #fonts
     gnome3.gnome-terminal
