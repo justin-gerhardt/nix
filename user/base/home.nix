@@ -17,7 +17,7 @@
   };
 
   dconf.enable = true;
-
+  dconf.settings."org/gnome/terminal/legacy".theme-variant = "dark";
   fonts.fontconfig.enable = lib.mkForce true;
 
   imports =
@@ -28,6 +28,7 @@
 
   home.packages = with pkgs; [
     #fonts
+    dconf
     gnome3.gnome-terminal
 
     source-code-pro
