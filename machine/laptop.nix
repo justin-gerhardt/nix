@@ -1,11 +1,17 @@
 { config, pkgs, lib, ... }:
-
+let 
+private = import ../private;
+in
 {
-  imports = [ ../user/laptop ./base.nix ];
+  imports = [ ../user/laptop ./base.nix];
 
   services.xserver.libinput = {
     enable = true;
     accelProfile = "flat";
+  };
+  networking.wireless = {
+    enable = true;
+    networks = private.wifi.Peters;
   };
   networking = {
     hostName = "gerhardt-laptop";
