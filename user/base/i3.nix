@@ -43,6 +43,10 @@ in {
           "${mod}+f" = "fullscreen toggle";
           "${mod}+Return" = "exec gnome-terminal";
           "${mod}+c" = "exec google-chrome-stable";
+          "${mod}+l" = "exec dm-tool lock";
+          "${mod}+v" = "exec bluetoothctl connect 74:5C:4B:F8:E4:49";
+
+
           "${mod}+Shift+r" = "restart";
 
           "${mod}+Left" = "move left";
