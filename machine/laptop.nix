@@ -1,9 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [../user/laptop ./base.nix ];
+  imports = [ ../user/laptop ./base.nix ];
 
-
+  services.xserver.libinput = {
+    enable = true;
+    accelProfile = "flat";
+  };
   networking = {
     hostName = "gerhardt-laptop";
     hostId = "abcdef02";
