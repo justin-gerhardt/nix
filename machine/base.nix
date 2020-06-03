@@ -38,6 +38,7 @@ in
   };
 
   hardware.bluetooth.enable = true;
+  hardware.cpu.amd.updateMicrocode = true;
   systemd.services.nixos-upgrade.script =
     lib.mkOrder 100 "nix-channel --update";
 
