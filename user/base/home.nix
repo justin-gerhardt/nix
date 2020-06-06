@@ -23,10 +23,12 @@
   imports =
     [ ./i3.nix ./vlc ./fish.nix ./polybar.nix ./wallpaper ./kdeconnect.nix ];
 
-
   gerhardt.polybar.enable = true;
 
   home.packages = with pkgs; [
+
+    bustle
+    dfeet
     #fonts
     dconf
     gnome3.gnome-terminal
