@@ -16,67 +16,53 @@
     Install.WantedBy = [ "default.target" ];
   };
 
-  dconf.enable = true;
-  dconf.settings."org/gnome/terminal/legacy".theme-variant = "dark";
+
+
   fonts.fontconfig.enable = lib.mkForce true;
 
   imports =
-    [ ./i3.nix ./vlc ./fish.nix ./polybar.nix ./wallpaper ./kdeconnect.nix ];
+    [ ./i3.nix ./vlc ./fish.nix ./polybar.nix ./wallpaper ./kdeconnect.nix ./terminal.nix ];
 
   gerhardt.polybar.enable = true;
 
   home.packages = with pkgs; [
-
-    bustle
-    dfeet
     #fonts
-    dconf
-    gnome3.gnome-terminal
-
     source-code-pro
     font-awesome
     unifont
     siji
+
+    #dbus debug
+    bustle
+    dfeet
+
     gnome3.gnome-screenshot
+    pulsemixer
+    youtube-dl
+    spotify
+    google-chrome
+    iotop
+    gparted
+    file
+    gitkraken
+    jq
+    docker-compose
+    git
+    ldns # provides drill
+
+    #dev tools
     nodejs
     pipenv
     python38
     cairo
-    gitkraken
     heroku
-    postman
-    jq
-    pulsemixer
-    youtube-dl
-    spotify
-    xorg.xwininfo
-    pstree
-    google-chrome
     gdb
-    feh
-    docker-compose
-    ldns
-    pciutils
-    git
-
-    # bundler
     gcc
-    gnumake
-    coreutils-full
-    libffi
-    ruby
-    rake
-
-    iotop
-    gparted
-
     lldb
-    gdb
-    file
+    gnumake
 
     (callPackage ./playlist-downloader.nix { })
     (callPackage ./vscode.nix { })
-    python3Packages.sphinx
   ];
 
 }
