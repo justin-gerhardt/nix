@@ -52,12 +52,7 @@ in pkgs.symlinkJoin {
   ];
   buildInputs = [ pkgs.makeWrapper ];
   postBuild = ''
-    wrapProgram $out/bin/code --add-flags "--extensions-dir ${
-      buildEnv {
-        name = "vscode-extensions";
-        paths = vscodeExtensions;
-      }
-    }/share/vscode/extensions" --prefix PATH ":" ${
+    wrapProgram $out/bin/code --prefix PATH ":" ${
       stdenv.lib.makeBinPath [ pkgs.nixfmt ]
     }
   '';
