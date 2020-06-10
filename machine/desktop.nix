@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ../user/desktop ./base.nix ];
+  imports = [ ../user/desktop ./base ];
 
   networking = {
     hostName = "gerhardt-desktop";

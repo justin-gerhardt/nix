@@ -1,9 +1,9 @@
 { config, pkgs, lib, ... }:
 let
-private = import ../private;
+private = import ../../private;
 in
 {
-  imports = [ /etc/nixos/hardware-configuration.nix ../user/base ];
+  imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ];
 
   boot = {
     loader = {
@@ -97,7 +97,7 @@ in
   i18n.defaultLocale = "en_CA.UTF-8";
   programs.wireshark = {
     enable = true;
-    package = pkgs.wireshark-qt;
+    package = (pkgs.callPackage ./wireshark { });
   };
 
   # This value determines the NixOS release from which the default

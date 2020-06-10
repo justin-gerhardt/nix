@@ -3,7 +3,7 @@ let
 private = import ../private;
 in
 {
-  imports = [ ../user/laptop ./base.nix];
+  imports = [ ../user/laptop ./base];
 
   services.xserver.libinput = {
     enable = true;
