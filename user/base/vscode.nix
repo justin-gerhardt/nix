@@ -11,6 +11,12 @@ let
         sha256 = "07w35c69vk1l6vipnq3qfack36qcszqxn8j3v332bl0w6m02aa7k";
       }
       {
+        publisher = "webfreak";
+        name = "debug";
+        version = "0.25.0";
+        sha256 = "0qm2jgkj17a0ca5z21xbqzfjpi0hzxw4h8y2hm8c4kk2bnw02sh1";
+      }
+      {
         publisher = "ritwickdey";
         name = "liveserver";
         version = "5.6.1";
