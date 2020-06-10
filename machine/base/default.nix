@@ -30,11 +30,7 @@ in
 
   hardware.pulseaudio = {
     enable = true;
-    extraConfig = ''
-      load-module module-suspend-on-idle timeout=1
-    '';
-    # Only the full build has Bluetooth support, so it must be selected here.
-    package = pkgs.pulseaudioFull;
+    package = (pkgs.callPackage ./pulseaudio { });
   };
 
   hardware.bluetooth.enable = true;
