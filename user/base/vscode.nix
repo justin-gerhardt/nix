@@ -2,7 +2,7 @@
 let
 
   vscodeExtensions = with pkgs.vscode-extensions;
-    [ ms-vscode.cpptools ms-python.python bbenoist.Nix ]
+    [matklad.rust-analyzer ms-vscode.cpptools ms-python.python bbenoist.Nix ]
     ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         publisher = "brettm12345";
