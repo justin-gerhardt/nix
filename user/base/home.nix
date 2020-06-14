@@ -39,6 +39,7 @@
     gnome3.gnome-screenshot
     pulsemixer
     youtube-dl
+    mkvtoolnix
     spotify
     google-chrome
     iotop
@@ -61,7 +62,9 @@
     lldb
     gnumake
 
+
     (callPackage ./playlist-downloader.nix { })
+    (callPackage ./spotify-scaler.nix { })
     (callPackage ./vscode.nix { })
   ];
 
