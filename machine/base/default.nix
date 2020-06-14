@@ -93,7 +93,7 @@ in
   i18n.defaultLocale = "en_CA.UTF-8";
   programs.wireshark = {
     enable = true;
-    package = (pkgs.callPackage ./wireshark { });
+    package = pkgs.wireshark-qt; # (pkgs.callPackage ./wireshark { });
   };
 
   # This value determines the NixOS release from which the default
