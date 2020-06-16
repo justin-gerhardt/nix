@@ -1,10 +1,15 @@
 { config, pkgs, lib, ... }:
+with lib;
+let
+  cfg = config.gerhardt.polybar;
 
-let cfg = config.gerhardt.polybar;
+  eitherStrBoolIntList = with types;
+    either str (either bool (either int (listOf str)));
 
-in with lib;
+  subConfigType = types.attrsOf eitherStrBoolIntList;
+  primaryConfigType =  types.attrsOf subConfigType;
 
-{
+in {
 
   options = {
     gerhardt.polybar = {
@@ -14,6 +19,27 @@ in with lib;
         type = with types; listOf str;
         description = ''
           The displays to place bars on. If unspecified polybar will place the primary bar on what it thinks is default.
+        '';
+      };
+      primaryBarConfig = mkOption {
+        default = { };
+        type = subConfigType;
+        description = ''
+          Extra config for the primary bar.
+        '';
+      };
+      secondaryBarConfig = mkOption {
+        default = { };
+        type = subConfigType;
+        description = ''
+          Extra config for the secondary bar.
+        '';
+      };
+      extraConfig = mkOption {
+        default = { };
+        type = primaryConfigType;
+        description = ''
+          Extra config.
         '';
       };
     };
@@ -47,7 +73,7 @@ in with lib;
           "inherit" = "bar/base";
           "tray-position" = "none";
           "monitor" = "\${env:MONITOR:${value}}";
-        };
+        } // cfg.secondaryBarConfig;
       }) (drop 1 cfg.monitors)) // {
         "colors" = {
           "background" = "#222";
@@ -89,7 +115,7 @@ in with lib;
           "monitor" = mkIf (length cfg.monitors >= 1)
             "\${env:MONITOR:${head cfg.monitors}}";
           "tray-position" = "right";
-        };
+        } // cfg.primaryBarConfig;
 
         "module/i3" = {
           "type" = "internal/i3";
@@ -133,7 +159,7 @@ in with lib;
         };
 
         "settings" = { "screenchange-reload" = true; };
-      };
+      } // cfg.extraConfig;
     };
   };
 }
