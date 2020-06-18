@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
-let
-private = import ../../private;
-in
-{
+let private = import ../../private;
+in {
   imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ];
 
   boot = {
@@ -12,7 +10,10 @@ in
     };
     # kernelPackages = pkgs.linuxPackages_latest;
     # kernelParams = [ "nouveau.noaccel=1" ];
-    initrd.supportedFilesystems = [ "zfs" ];
+    initrd = {
+      supportedFilesystems = [ "zfs" ];
+      kernelModules = [ "amdgpu" ];
+    };
     kernel.sysctl."kernel.sysrq" = 1;
     supportedFilesystems = [ "zfs" ];
     zfs = {
@@ -82,7 +83,7 @@ in
 
   users.users.root.hashedPassword = private.userPasswordHashes.root;
   users.users.justin.hashedPassword = private.userPasswordHashes.justin;
-  
+
   fonts.fonts = with pkgs; [ source-code-pro font-awesome unifont siji ];
   services.dbus.socketActivated = true;
 
