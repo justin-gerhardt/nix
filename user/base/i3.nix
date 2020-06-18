@@ -46,6 +46,8 @@ in {
           "${mod}+l" = "exec dm-tool lock";
           "${mod}+v" = "exec bluetoothctl connect 74:5C:4B:F8:E4:49";
 
+          "XF86MonBrightnessUp" = "exec xbacklight -inc 10";
+          "XF86MonBrightnessDown" = "exec xbacklight -dec 10";
 
           "${mod}+Shift+r" = "restart";
 
