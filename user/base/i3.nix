@@ -49,6 +49,10 @@ in {
           "XF86MonBrightnessUp" = "exec xbacklight -inc 10";
           "XF86MonBrightnessDown" = "exec xbacklight -dec 10";
 
+          "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86AudioRaiseVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%";
+          "XF86AudioLowerVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%";
+
           "${mod}+Shift+r" = "restart";
 
           "${mod}+Left" = "move left";
