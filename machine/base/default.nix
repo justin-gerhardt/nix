@@ -73,11 +73,13 @@ in {
     mingetty.autologinUser = "justin";
   };
 
+  programs.adb.enable = true;
+
   users = {
     mutableUsers = false;
     users.justin = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" "wireshark" ];
+      extraGroups = [ "wheel" "docker" "wireshark" "adbusers"];
       shell = pkgs.fish;
     };
   };
