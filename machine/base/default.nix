@@ -42,6 +42,7 @@ in {
   system.autoUpgrade.enable = true;
 
   services = {
+    pcscd.enable = true;
     xserver = {
       enable = true;
       startDbusSession = false;

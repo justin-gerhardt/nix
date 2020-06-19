@@ -16,12 +16,17 @@
     Install.WantedBy = [ "default.target" ];
   };
 
-
-
   fonts.fontconfig.enable = lib.mkForce true;
 
-  imports =
-    [ ./i3.nix ./vlc ./fish.nix ./polybar.nix ./wallpaper ./kdeconnect.nix ./terminal.nix ];
+  imports = [
+    ./i3.nix
+    ./vlc
+    ./fish.nix
+    ./polybar.nix
+    ./wallpaper
+    ./kdeconnect.nix
+    ./terminal.nix
+  ];
 
   gerhardt.polybar.enable = true;
 
@@ -50,6 +55,9 @@
     docker-compose
     git
     ldns # provides drill
+    eagle
+    yubikey-manager
+    yubioath-desktop
 
     #dev tools
     nodejs
@@ -61,7 +69,6 @@
     gcc
     lldb
     gnumake
-
 
     (callPackage ./playlist-downloader.nix { })
     (callPackage ./spotify-scaler.nix { })
