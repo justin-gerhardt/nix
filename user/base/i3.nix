@@ -53,6 +53,11 @@ in {
           "XF86AudioRaiseVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%";
           "XF86AudioLowerVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%";
 
+          "XF86AudioStop" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify stop";
+          "XF86AudioNext" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify next";
+          "XF86AudioPrev" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify previous";
+          "XF86AudioPlay" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify play-pause";
+
           "${mod}+Shift+r" = "restart";
 
           "${mod}+Left" = "move left";
