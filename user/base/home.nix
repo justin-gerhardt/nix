@@ -26,6 +26,7 @@
     ./wallpaper
     ./kdeconnect.nix
     ./terminal.nix
+    ./notoEmoji
   ];
 
   gerhardt.polybar.enable = true;
