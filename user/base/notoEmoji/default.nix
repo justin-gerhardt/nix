@@ -25,6 +25,14 @@
             <string>emoji</string>
           </edit>
         </match>
+        <match target="font">
+          <test name="family">
+            <string>Noto Color Emoji</string>
+          </test>
+          <edit name="pixelsize" mode="assign">
+            <times><name>pixelsize</name>, <double>1.4</double></times>
+          </edit>
+        </match>
       </fontconfig>
     '';
   };
