@@ -59,7 +59,9 @@
     eagle
     yubikey-manager
     yubioath-desktop
-
+    bat
+    dtrx
+    
     #dev tools
     nodejs
     pipenv

@@ -10,11 +10,13 @@
       set fish_greeting
       powerline-setup
 
-      if status is-login
-        if test -z "$DISPLAY" -a $XDG_VTNR = 1
-          exec startx -- -keeptty
-        end
-      end
+      alias ls="ls --human-readable"
+      alias cat="bat"
+      alias untar="dtrx"
+      alias less="bat --paging always"
+      set -gx DOTNET_CLI_TELEMETRY_OPTOUT true
+      set -gx PIPENV_VENV_IN_PROJECT 1
+
     '';
 
     functions = {
