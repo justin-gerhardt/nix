@@ -2,7 +2,7 @@
 
 {
 
-  home.packages = with pkgs; [ pkgs.python38Packages.powerline ];
+  home.packages = with pkgs; [ (callPackage ./powerline-workaround.nix { }) ];
 
   programs.fish = {
     enable = true;
