@@ -47,8 +47,8 @@ in {
       enable = true;
       startDbusSession = false;
       # videoDrivers = [ "nvidia" ];
-      displayManager.lightdm = {
-        enable = true;
+      displayManager = {
+        lightdm.enable = true;
         autoLogin = {
           enable = true;
           user = "justin";
@@ -79,7 +79,7 @@ in {
     mutableUsers = false;
     users.justin = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" "wireshark" "adbusers"];
+      extraGroups = [ "wheel" "docker" "wireshark" "adbusers" ];
       shell = pkgs.fish;
     };
   };
