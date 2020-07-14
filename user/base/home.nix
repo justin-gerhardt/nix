@@ -61,7 +61,11 @@
     yubioath-desktop
     bat
     dtrx
-    
+    sqlitebrowser
+    usbutils # provides lsusb
+    android-studio
+    gnome3.nautilus
+
     #dev tools
     nodejs
     pipenv
