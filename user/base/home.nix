@@ -65,6 +65,7 @@
     usbutils # provides lsusb
     android-studio
     gnome3.nautilus
+    stm32cubemx
 
     #dev tools
     nodejs
