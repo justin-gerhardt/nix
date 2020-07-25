@@ -11,7 +11,7 @@ in {
   };
   networking.wireless = {
     enable = true;
-    networks = private.wifi.Peters;
+    networks = (private.wifi.Peters // private.wifi.Dads);
   };
   networking = {
     hostName = "gerhardt-laptop";
