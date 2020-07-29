@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let private = import ../../private;
 in {
-  imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ];
+  imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ./jlink ];
 
   boot = {
     loader = {
