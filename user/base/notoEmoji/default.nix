@@ -5,26 +5,15 @@
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
       <fontconfig>
-        <match>
-        <!-- If the requested font is serif -->
-          <test qual="any" name="family">
-            <string>serif</string>
-          </test>
-          <edit name="family" mode="prepend_first">
-            <string>emoji</string>
-          </edit>
-        </match>
-
-        <match target="pattern">
-          <!-- If the requested font is sans-serif -->
-          <test qual="any" name="family">
-            <string>sans-serif</string>
-          </test>
-          <!-- Followed by EmojiOne Color -->
-          <edit name="family" mode="prepend_first">
-            <string>emoji</string>
-          </edit>
-        </match>
+        <selectfont>
+          <rejectfont>
+            <pattern>
+              <patelt name="family">
+                <string>Noto Emoji</string>
+              </patelt>
+            </pattern>
+          </rejectfont>
+        </selectfont>
         <match target="font">
           <test name="family">
             <string>Noto Color Emoji</string>
