@@ -2,7 +2,7 @@
 let
 
   vscodeExtensions = with pkgs.vscode-extensions;
-    [matklad.rust-analyzer ms-vscode.cpptools ms-python.python bbenoist.Nix ]
+    [ matklad.rust-analyzer ms-vscode.cpptools ms-python.python bbenoist.Nix ]
     ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         publisher = "brettm12345";
@@ -45,6 +45,18 @@ let
         name = "node-debug2";
         version = "1.42.2";
         sha256 = "151w3nqqxjk58xnyckii9dcglk59z4g8ii3vyz6xbbvdrilmms8l";
+      }
+      {
+        publisher = "be5invis";
+        name = "toml";
+        version = "0.5.1";
+        sha256 = "1r1y6krqw5rrdhia9xbs3bx9gibd1ky4bm709231m9zvbqqwwq2j";
+      }
+      {
+        publisher = "marus25";
+        name = "cortex-debug";
+        version = "0.3.7";
+        sha256 = "0v1i7h0rz7r1xsbmz6xvczaiqg7i1a8c4kadb97ynpgaykbi26cd";
       }
 
     ];
