@@ -77,6 +77,7 @@
     gcc
     lldb
     gnumake
+    megasync
 
     (callPackage ./playlist-downloader.nix { })
     (callPackage ./spotify-scaler.nix { })
