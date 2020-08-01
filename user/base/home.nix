@@ -27,6 +27,7 @@
     ./kdeconnect.nix
     ./terminal.nix
     ./notoEmoji
+    ./megasync.nix
   ];
 
   gerhardt.polybar.enable = true;
@@ -77,7 +78,6 @@
     gcc
     lldb
     gnumake
-    megasync
 
     (callPackage ./playlist-downloader.nix { })
     (callPackage ./spotify-scaler.nix { })
