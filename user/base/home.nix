@@ -40,7 +40,7 @@
     siji
 
     #dbus debug
-    bustle
+    # bustle
     dfeet
 
     gnome3.gnome-screenshot
