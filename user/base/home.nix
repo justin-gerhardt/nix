@@ -82,6 +82,8 @@
     (callPackage ./playlist-downloader.nix { })
     (callPackage ./spotify-scaler.nix { })
     (callPackage ./vscode.nix { })
+    (callPackage ./zfsbackup { })
+
   ];
 
 }
