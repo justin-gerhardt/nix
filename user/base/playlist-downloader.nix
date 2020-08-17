@@ -9,12 +9,11 @@ buildPythonPackage rec {
   src = pkgs.fetchFromGitHub {
     owner = "justin-gerhardt";
     repo = pname;
-    rev = "ca2445ca7d3ff285efe77463fee41e3667d29be6";
-    sha256 = "008bgf27sq6j7x1zmnps5iy66vwd0x044g3kic9vdid2ry7qakwz";
+    rev = "5d98dae9ea1a829fcb90b4a57868ad1acd1469c9";
+    sha256 = "00yhqz8f62c5m88qzshr46xkz7j3xmnwhkwgh19jkj39s6x3s9f7";
   };
 
-  propagatedBuildInputs =
-    [regex pkgs.ffmpeg pkgs.mkvtoolnix pkgs.youtube-dl ];
+  propagatedBuildInputs = [ regex pkgs.ffmpeg pkgs.mkvtoolnix pkgs.youtube-dl ];
 
   # No tests
   doCheck = false;
