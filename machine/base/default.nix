@@ -44,6 +44,9 @@ in {
   services = {
     pcscd.enable = true;
     xserver = {
+
+      libinput.enable = true;
+
       enable = true;
       startDbusSession = false;
       # videoDrivers = [ "nvidia" ];
