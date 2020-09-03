@@ -42,9 +42,14 @@ in {
   system.autoUpgrade.enable = true;
 
   services = {
+
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+    };
+
     pcscd.enable = true;
     xserver = {
-
       libinput.enable = true;
 
       enable = true;
@@ -84,6 +89,7 @@ in {
       isNormalUser = true;
       extraGroups = [ "wheel" "docker" "wireshark" "adbusers" ];
       shell = pkgs.fish;
+      openssh.authorizedKeys.keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDa2e6APkYYp8n4Pw20krw8ypsHtVs0T1sR6KfCxRw4+wX/ZPla+fXOSiN4prIASSmMGlkqgOED80SMKXQLqa7FjTtGUEwfpJO2SrJQJH68uGKOyBWna3aSIMRXmb0OOTmgCiZbh1+Xp5e5aWF0FSP136f3YaO1ApLqjuwc1lgmrKQQA0DRknW6git6Q+4GvbUbqeFFP+zHcQ1AMaqYBI3Nyut9PMKw4mIvol8DmDNpkunkA8nwI6Iec33gzxhOxFSRNYJhdp2ZfYndtMzjbE6vHpwQ7wHOZ8xlfQy2N7BGd3sZH2M6vGIh5yTfo4Y+26cgVOdGPdmtSYucx15D7p9hhbK8qXh+26GY8y53jIKT5ReFT6T8wt3lLOxJYNduc7+O0I+RWGOy0yZtySz0Gyvx2W3BsCOU34xMbJmHdvsNVXOvD/2vS0AtuqkYv9ox+dnXaIIhexKfoxYrdpMiTXHI557IDIUr4SUPjAMHHIfsFGYvn+IyvghvDYZE0RZgOAs= justin@gerhardt-laptop"];
     };
   };
 
