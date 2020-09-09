@@ -67,6 +67,7 @@
     android-studio
     gnome3.nautilus
     stm32cubemx
+    tio
 
     #dev tools
     nodejs
