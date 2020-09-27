@@ -11,13 +11,11 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     useDHCP = false;
-    interfaces.enp30s0.useDHCP = true;
-    interfaces.enp42s0.useDHCP = true;
-    interfaces.wlp39s0.useDHCP = true;
+    interfaces.enp4s0.useDHCP = true;
 
   };
 
-  services.xserver.xrandrHeads = [ "DP-1" "DVI-D-1" ];
+  services.xserver.xrandrHeads = [ "DP-1" "HDMI-1" ];
 
   systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
     /root/zfs/mediakey;
