@@ -69,6 +69,9 @@
     stm32cubemx
     tio
 
+    burpsuite
+    charles
+
     #dev tools
     nodejs
     pipenv
