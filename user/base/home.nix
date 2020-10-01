@@ -4,8 +4,8 @@
 # devices. Presently these are: Thinkpad, Macbook and Pixel Slate.
 
 { config, pkgs, lib, ... }:
-
-{
+let lockedPkgs = (import ../../machine/base/lockedpkgs.nix { inherit pkgs; });
+in {
   nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
 
@@ -20,14 +20,14 @@
 
   imports = [
     ./i3.nix
-    ./vlc
     ./fish.nix
     ./polybar.nix
     ./wallpaper
     ./kdeconnect.nix
     ./terminal.nix
-    ./notoEmoji
-    ./megasync.nix
+    (import ./notoEmoji { pkgs = lockedPkgs.newPkgs; })
+    (import ./megasync.nix { pkgs = lockedPkgs.newPkgs; })
+    (import ./vlc { pkgs = lockedPkgs.newPkgs; })
   ];
 
   gerhardt.polybar.enable = true;
@@ -83,10 +83,11 @@
     lldb
     gnumake
 
-    (callPackage ./playlist-downloader.nix { })
-    (callPackage ./spotify-scaler.nix { })
     (callPackage ./vscode.nix { })
-    (callPackage ./zfsbackup { })
+
+    (callPackage ./playlist-downloader.nix { pkgs = lockedPkgs.newPkgs; })
+    (callPackage ./spotify-scaler.nix { pkgs = lockedPkgs.newPkgs; })
+    (callPackage ./zfsbackup { pkgs = lockedPkgs.newPkgs; })
 
   ];
 

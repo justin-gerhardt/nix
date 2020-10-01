@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # resume.patch removes the requirements to be at least 5% from the end of a video to resume where you left off

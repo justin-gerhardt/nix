@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-let private = import ../../private;
+let
+  private = import ../../private;
+  lockedPkgs = (import ./lockedpkgs.nix {inherit pkgs;});
 in {
   imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ./jlink ];
 
@@ -26,12 +28,14 @@ in {
 
   nix.trustedUsers = [ "root" "justin" ];
 
+  nixpkgs.config.allowUnfree = true;
+
   security.sudo.wheelNeedsPassword = false;
   time.timeZone = "America/Toronto";
 
   hardware.pulseaudio = {
     enable = true;
-    package = (pkgs.callPackage ./pulseaudio { });
+    package = (lockedPkgs.modifiedPkgs.callPackage ./pulseaudio { });
   };
 
   hardware.bluetooth.enable = true;

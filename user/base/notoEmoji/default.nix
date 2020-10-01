@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }: {
   home.packages = [ (pkgs.callPackage ./package.nix { }) ];
   xdg.configFile = {
     "fontconfig/conf.d/99-gerhardt-emoji.conf".text = ''
