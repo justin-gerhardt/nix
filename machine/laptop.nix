@@ -5,10 +5,6 @@ in {
 
   hardware.acpilight.enable = true;
   users.users.justin.extraGroups = [ "video" ];
-  services.xserver.libinput = {
-    enable = true;
-    accelProfile = "flat";
-  };
   networking.wireless = {
     enable = true;
     networks = (private.wifi.Peters // private.wifi.Dads);
