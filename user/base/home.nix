@@ -67,6 +67,7 @@ in {
     android-studio
     gnome3.nautilus
     stm32cubemx
+    anydesk
     tio
 
     burpsuite
