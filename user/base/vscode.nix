@@ -58,6 +58,26 @@ let
         version = "0.3.7";
         sha256 = "0v1i7h0rz7r1xsbmz6xvczaiqg7i1a8c4kadb97ynpgaykbi26cd";
       }
+      {
+        publisher = "ms-vscode-remote";
+        name = "remote-ssh";
+        version = "0.55.0";
+        sha256 = "1rzdz6539zbqsh3ikwmysz0587s1p5w72bqry17147s7hk513gn0";
+      }
+
+      {
+        publisher = "spadin";
+        name = "remote-x11";
+        version = "1.4.1";
+        sha256 = "1491asnddi6gd7z71dpgs3dk723l2llmhzhzkh2cb2szmh6g9r98";
+      }
+           {
+        publisher = "spadin";
+        name = "remote-x11-ssh";
+        version = "1.4.0";
+        sha256 = "1qsac6rz905jhpj3xmpzrk0fwifpqwbnrnivz66byhzjy41jdjr3";
+      }
+
 
     ];
 
