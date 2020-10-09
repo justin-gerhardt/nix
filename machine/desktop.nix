@@ -27,8 +27,5 @@
     };
     groups.docker-media = { gid = 973; };
   };
-
-  # virtualisation.virtualbox.host.enable = true;
-  virtualisation.docker.enable = true;
 }
 
