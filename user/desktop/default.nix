@@ -2,6 +2,6 @@
 
 {
   imports = [ <home-manager/nixos> ];
-  home-manager.users.justin.gerhardt.polybar.monitors = [ "DP-1" "HDMI-1"];
+  home-manager.users.justin.gerhardt.polybar.monitors = [ "DP-2" "HDMI-1"];
 }
 

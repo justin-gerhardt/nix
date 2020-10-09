@@ -17,7 +17,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  services.xserver.xrandrHeads = [ "DP-1" "HDMI-1" ];
+  services.xserver.xrandrHeads = [ "DP-2" "HDMI-1" ];
 
   systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
     /root/zfs/mediakey;
