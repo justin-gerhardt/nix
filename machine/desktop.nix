@@ -15,6 +15,8 @@
 
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   services.xserver.xrandrHeads = [ "DP-1" "HDMI-1" ];
 
   systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
