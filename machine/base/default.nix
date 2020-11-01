@@ -57,7 +57,6 @@ in {
       libinput.enable = true;
 
       enable = true;
-      startDbusSession = false;
       # videoDrivers = [ "nvidia" ];
       displayManager = {
         lightdm.enable = true;
@@ -101,7 +100,6 @@ in {
   users.users.justin.hashedPassword = private.userPasswordHashes.justin;
 
   fonts.fonts = with pkgs; [ source-code-pro font-awesome unifont siji ];
-  services.dbus.socketActivated = true;
 
   services.dbus.packages = [ pkgs.gnome3.gnome-terminal ];
   systemd.packages = [ pkgs.gnome3.gnome-terminal ];
