@@ -17,6 +17,8 @@
       set -gx DOTNET_CLI_TELEMETRY_OPTOUT true
       set -gx PIPENV_VENV_IN_PROJECT 1
 
+      set --universal fish_user_paths $fish_user_paths "./node_modules/.bin/"
+
     '';
 
     functions = {
