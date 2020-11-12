@@ -15,9 +15,17 @@
 
   };
 
+  hardware.opengl.enable = true;
+  environment.variables.VK_ICD_FILENAMES =
+    "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
+  hardware.opengl.driSupport = true;
+  hardware.opengl.extraPackages = [ pkgs.rocm-opencl-icd pkgs.amdvlk ];
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  services.xserver.xrandrHeads = [ "DP-2" "HDMI-1" ];
+  services.xserver.xrandrHeads = [ "DP-1" "HDMI-1" ];
+
+
 
   systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
     /root/zfs/mediakey;

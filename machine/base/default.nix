@@ -57,7 +57,6 @@ in {
       libinput.enable = true;
 
       enable = true;
-      # videoDrivers = [ "nvidia" ];
       displayManager = {
         lightdm.enable = true;
         autoLogin = {
