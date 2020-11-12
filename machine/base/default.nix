@@ -28,6 +28,8 @@ in {
 
   nix.trustedUsers = [ "root" "justin" ];
 
+  services.printing.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   security.sudo.wheelNeedsPassword = false;
