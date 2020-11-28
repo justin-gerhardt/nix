@@ -69,6 +69,7 @@ in {
     stm32cubemx
     anydesk
     tio
+    steam
 
     burpsuite
     charles
