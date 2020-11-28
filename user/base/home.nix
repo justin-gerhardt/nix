@@ -41,7 +41,7 @@ in {
     siji
 
     #dbus debug
-    # bustle
+    bustle
     dfeet
 
     gnome3.gnome-screenshot
@@ -71,6 +71,8 @@ in {
     anydesk
     tio
     steam
+    jetbrains.phpstorm
+
 
     burpsuite
     charles
@@ -85,6 +87,8 @@ in {
     gcc
     lldb
     gnumake
+    (php74.withExtensions ({ enabled, all }: enabled ++ [ all.xdebug (callPackage ./php-dbus.nix {}) ]))
+    php74Packages.composer
 
     (callPackage ./vscode.nix { })
 
