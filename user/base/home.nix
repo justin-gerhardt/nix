@@ -23,6 +23,7 @@ in {
     ./fish.nix
     ./polybar.nix
     ./wallpaper
+    ./kicad.nix
     ./kdeconnect.nix
     ./terminal.nix
     (import ./notoEmoji { pkgs = lockedPkgs.newPkgs; })
