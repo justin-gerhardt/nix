@@ -7,7 +7,8 @@ in {
   users.users.justin.extraGroups = [ "video" ];
   networking.wireless = {
     enable = true;
-    networks = (private.wifi.Peters // private.wifi.Dads);
+    networks =
+      (private.wifi.Peters // private.wifi.Dads // { KHSC-Guest = { }; });
   };
   networking = {
     hostName = "gerhardt-laptop";
