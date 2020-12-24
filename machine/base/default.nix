@@ -3,7 +3,7 @@ let
   private = import ../../private;
   lockedPkgs = (import ./lockedpkgs.nix { inherit pkgs; });
 in {
-  imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ./jlink ];
+  imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ];
 
   boot = {
     loader = {
@@ -116,7 +116,7 @@ in {
 
   virtualisation = {
     docker.enable = true;
-    virtualbox.host.enable = true;
+    # virtualbox.host.enable = true;
   };
 
   # This value determines the NixOS release from which the default
