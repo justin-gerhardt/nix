@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ../user/desktop ./base ];
+  imports = [ ../../user/interactive/desktop ./base ];
 
   networking = {
     hostName = "gerhardt-desktop";
@@ -22,11 +22,12 @@
   hardware.opengl.extraPackages = [ pkgs.rocm-opencl-icd pkgs.amdvlk ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
 
   services.xserver.xrandrHeads = [ "DP-1" "HDMI-1" ];
 
-  systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
-    /root/zfs/mediakey;
+  # systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
+  #   /root/zfs/mediakey;
 
   users = {
     users.docker-media = {

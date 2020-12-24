@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let private = import ../private;
 in {
-  imports = [ ../user/laptop ./base ];
+  imports = [ ../../user/interactive/laptop ./base ];
 
   hardware.acpilight.enable = true;
   users.users.justin.extraGroups = [ "video" ];

@@ -2,7 +2,6 @@
 
 {
   home-manager.users.justin = {
-
     home.packages = with pkgs; [ acpilight ];
     gerhardt.polybar = {
       extraConfig = {
