@@ -17,6 +17,8 @@
 
   };
 
+  environment.systemPackages = [ pkgs.xorg.xauth ];
+  services.openssh.forwardX11 = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
 
