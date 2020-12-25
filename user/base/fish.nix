@@ -8,7 +8,9 @@
     enable = true;
     shellInit = ''
       set fish_greeting
-      powerline-setup
+      if status --is-interactive
+        powerline-setup
+      end
 
       alias ls="ls --human-readable"
       alias cat="bat"
