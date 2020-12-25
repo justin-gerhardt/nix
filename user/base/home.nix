@@ -21,6 +21,7 @@ in {
     usbutils # provides lsusb
     tio
     tmux
+    nmap
 
     #dev tools
     nodejs
