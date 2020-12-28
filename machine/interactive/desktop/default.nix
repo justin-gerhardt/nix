@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ../../user/interactive/desktop ./base ];
+  imports = [ ../../../user/interactive/desktop ../base ./backup ];
 
   networking = {
     hostName = "gerhardt-desktop";

@@ -22,6 +22,7 @@ in {
     tio
     tmux
     nmap
+    mbuffer
 
     #dev tools
     nodejs

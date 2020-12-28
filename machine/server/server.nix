@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ../base ];
+  imports = [ ../base ./backup ];
 
   networking = {
     hostName = "gerhardt-server";
