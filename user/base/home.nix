@@ -1,13 +1,20 @@
 { config, pkgs, lib, ... }:
-let
-  lockedPkgs = (import ../../machine/base/lockedpkgs.nix { inherit pkgs; });
+let lockedPkgs = (import ../../machine/base/lockedpkgs.nix { inherit pkgs; });
 in {
   nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
 
   imports = [ ./fish.nix ];
 
+  fonts.fontconfig.enable = lib.mkForce true;
+
   home.packages = with pkgs; [
+    #fonts
+    source-code-pro
+    font-awesome
+    unifont
+    siji
+
     youtube-dl
     mkvtoolnix
     iotop
@@ -23,6 +30,8 @@ in {
     tmux
     nmap
     mbuffer
+    gitkraken
+
 
     #dev tools
     nodejs
@@ -39,6 +48,8 @@ in {
 
     (callPackage ./playlist-downloader.nix { pkgs = lockedPkgs.newPkgs; })
     (callPackage ./spotify-scaler.nix { pkgs = lockedPkgs.newPkgs; })
+    (callPackage ./vscode.nix { })
+
   ];
 
 }

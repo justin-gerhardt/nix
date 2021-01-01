@@ -10,7 +10,6 @@ in {
     Install.WantedBy = [ "default.target" ];
   };
 
-  fonts.fontconfig.enable = lib.mkForce true;
 
   imports = [
     ./i3.nix
@@ -27,13 +26,7 @@ in {
   gerhardt.polybar.enable = true;
 
   home.packages = with pkgs; [
-    #fonts
-    source-code-pro
-    font-awesome
-    unifont
-    siji
-
-    #dbus debug
+     #dbus debug
     bustle
     dfeet
 
@@ -42,7 +35,6 @@ in {
     spotify
     google-chrome
     gparted
-    gitkraken
     eagle
     yubikey-manager
     yubioath-desktop
@@ -61,7 +53,6 @@ in {
     cairo
     heroku
    
-    (callPackage ./vscode.nix { })
     (callPackage ./zfsbackup { pkgs = lockedPkgs.newPkgs; })
 
   ];
