@@ -42,5 +42,11 @@
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
 
+  fileSystems."/media/mediaVolume" = {
+    device = "192.168.0.200:/media/mediaVolume";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" ];
+  };
+
 }
 

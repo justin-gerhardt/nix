@@ -34,5 +34,10 @@
   };
 
   boot.zfs.requestEncryptionCredentials = [ "mediaPool/encrypted" ];
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /media/mediaVolume         192.168.0.0/24(ro,no_subtree_check,mountpoint)
+  '';
 }
 
