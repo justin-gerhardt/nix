@@ -33,5 +33,6 @@
     groups.docker-media = { gid = 973; };
   };
 
+  boot.zfs.requestEncryptionCredentials = [ "mediaPool/encrypted" ];
 }
 
