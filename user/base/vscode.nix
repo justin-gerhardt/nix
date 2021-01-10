@@ -2,11 +2,13 @@
 let
 
   vscodeExtensions = with pkgs.vscode-extensions;
-    [ matklad.rust-analyzer ms-vscode.cpptools 
-    # ms-python.python
-    vadimcn.vscode-lldb
-     bbenoist.Nix ]
-    ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    [
+      matklad.rust-analyzer
+      ms-vscode.cpptools
+      ms-python.python
+      vadimcn.vscode-lldb
+      bbenoist.Nix
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         publisher = "brettm12345";
         name = "nixfmt-vscode";
@@ -74,13 +76,19 @@ let
         version = "1.4.1";
         sha256 = "1491asnddi6gd7z71dpgs3dk723l2llmhzhzkh2cb2szmh6g9r98";
       }
-           {
+      {
         publisher = "spadin";
         name = "remote-x11-ssh";
         version = "1.4.0";
         sha256 = "1qsac6rz905jhpj3xmpzrk0fwifpqwbnrnivz66byhzjy41jdjr3";
       }
 
+      {
+        publisher = "13xforever";
+        name = "language-x86-64-assembly";
+        version = "2.3.0";
+        sha256 = "0lfbkvpwmvrsfzpvf0p0g2nnq1qg5p173vd5m4idq90r2vzypwg1";
+      }
 
     ];
 
