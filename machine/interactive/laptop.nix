@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let private = import ../private;
+let private = import ../../private;
 in {
   imports = [ ../../user/interactive/laptop ./base ];
 
