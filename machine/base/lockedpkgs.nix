@@ -3,16 +3,16 @@
   modifiedPkgs = (import (pkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    # nixos-unstable-small as of Wed 23 Dec 2020 11:21:49 AM EST
-    rev = "2ae527c50e049570dd25132f9325527aa2320e32";
-    sha256 = "0rggj7d5j6mmn5l4p72pj0bdxcsid0wxyjqfivdhmfvlsmh8hadn";
+    # nixos-unstable-small as of Sun 10 Jan 2021 01:54:00 AM EST
+    rev = "97028f053c08fea03a64da70d6ae95199d1c7983";
+    sha256 = "1g5pb9yv9znvy1fpp2v52785nlfnchwfzi6fjdz4z1wd1jpanraf";
   }) { config.allowUnfree = true; });
   # used for my custom builds that won't update upstream
   newPkgs = (import (pkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    # nixos-unstable-small as of Wed 23 Dec 2020 11:21:49 AM EST
-    rev = "2ae527c50e049570dd25132f9325527aa2320e32";
-    sha256 = "0rggj7d5j6mmn5l4p72pj0bdxcsid0wxyjqfivdhmfvlsmh8hadn";
+    # nixos-unstable-small as of Sun 10 Jan 2021 01:54:00 AM EST
+    rev = "97028f053c08fea03a64da70d6ae95199d1c7983";
+    sha256 = "1g5pb9yv9znvy1fpp2v52785nlfnchwfzi6fjdz4z1wd1jpanraf";
   }) { config.allowUnfree = true; });
 }
