@@ -1,5 +1,11 @@
-{ pkgs ? import <nixpkgs> { }, stdenv, buildEnv }:
+{ stdenv, buildEnv }:
 let
+  nixpkgs = builtins.fetchTarball {
+    url    = "https://github.com/NixOS/nixpkgs/archive/871ca2455a75af983dafa16a01de3df09e15c497.tar.gz";
+    sha256 = "0fyv7c8npba6j2yzh614p97xmwa9d3a3hshlknpmjvznwx8kh05w";
+  };
+
+  pkgs = import nixpkgs { config = {allowUnfree = true;}; };
 
   vscodeExtensions = with pkgs.vscode-extensions;
     [
