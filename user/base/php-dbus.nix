@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { } }:
-pkgs.php74.buildPecl rec {
+pkgs.php73.buildPecl rec {
   pname = "php-dbus";
   version = "1.0.0";
 

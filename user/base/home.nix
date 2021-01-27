@@ -41,9 +41,9 @@ in {
     gcc
     lldb
     gnumake
-    (php74.withExtensions ({ enabled, all }:
+    (php73.withExtensions ({ enabled, all }:
       enabled ++ [ all.xdebug (callPackage ./php-dbus.nix { }) ]))
-    php74Packages.composer
+    php73Packages.composer
     cargo
 
     (callPackage ./playlist-downloader.nix { pkgs = lockedPkgs.newPkgs; })
