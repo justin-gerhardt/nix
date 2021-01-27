@@ -52,6 +52,9 @@ in {
     #dev tools
     cairo
     heroku
+
+    slack
+    
    
     (callPackage ./zfsbackup { pkgs = lockedPkgs.newPkgs; })
 
