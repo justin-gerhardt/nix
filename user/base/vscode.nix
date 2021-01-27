@@ -1,11 +1,12 @@
 { stdenv, buildEnv }:
 let
   nixpkgs = builtins.fetchTarball {
-    url    = "https://github.com/NixOS/nixpkgs/archive/871ca2455a75af983dafa16a01de3df09e15c497.tar.gz";
+    url =
+      "https://github.com/NixOS/nixpkgs/archive/871ca2455a75af983dafa16a01de3df09e15c497.tar.gz";
     sha256 = "0fyv7c8npba6j2yzh614p97xmwa9d3a3hshlknpmjvznwx8kh05w";
   };
 
-  pkgs = import nixpkgs { config = {allowUnfree = true;}; };
+  pkgs = import nixpkgs { config = { allowUnfree = true; }; };
 
   vscodeExtensions = with pkgs.vscode-extensions;
     [
@@ -94,6 +95,13 @@ let
         name = "language-x86-64-assembly";
         version = "2.3.0";
         sha256 = "0lfbkvpwmvrsfzpvf0p0g2nnq1qg5p173vd5m4idq90r2vzypwg1";
+      }
+
+      {
+        publisher = "zixuanwang";
+        name = "linkerscript";
+        version = "1.0.1";
+        sha256 = "13fvv7g1ignky8yf48xykyhj1mxsrqdy4jn78n9l0d47hfmsc3q6";
       }
 
     ];
