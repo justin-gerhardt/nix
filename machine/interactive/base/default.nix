@@ -42,7 +42,7 @@ in {
       };
 
     };
-    mingetty.autologinUser = "justin";
+    getty.autologinUser = "justin";
   };
 
   programs.adb.enable = true;
