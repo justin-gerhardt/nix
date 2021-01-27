@@ -98,6 +98,13 @@ let
       }
 
       {
+        publisher = "octref";
+        name = "vetur";
+        version = "0.32.0";
+        sha256 = "0wk6y6r529jwbk6bq25zd1bdapw55f6x3mk3vpm084d02p2cs2gl";
+      }
+
+      {
         publisher = "zixuanwang";
         name = "linkerscript";
         version = "1.0.1";
