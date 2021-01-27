@@ -45,6 +45,7 @@ in {
       enabled ++ [ all.xdebug (callPackage ./php-dbus.nix { }) ]))
     php73Packages.composer
     cargo
+    rustfmt
 
     (callPackage ./playlist-downloader.nix { pkgs = lockedPkgs.newPkgs; })
     (callPackage ./spotify-scaler.nix { pkgs = lockedPkgs.newPkgs; })
