@@ -54,7 +54,7 @@ in {
     heroku
 
     slack
-    
+    postman
    
     (callPackage ./zfsbackup { pkgs = lockedPkgs.newPkgs; })
 
