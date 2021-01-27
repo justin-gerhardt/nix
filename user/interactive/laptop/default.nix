@@ -11,7 +11,7 @@
           "adapter" = "AC";
         };
       };
-      primaryBarConfig = { "modules-right" = "battery date"; };
+      primaryBarConfig = { "modules-right" = "a battery date"; };
     };
   };
 }

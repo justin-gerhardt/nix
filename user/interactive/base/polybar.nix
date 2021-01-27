@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
+
+  private = (import ../../../private);
+
   cfg = config.gerhardt.polybar;
 
   eitherStrBoolIntList = with types;
@@ -159,7 +162,7 @@ in {
         };
 
         "settings" = { "screenchange-reload" = true; };
-      } // cfg.extraConfig;
+      } // cfg.extraConfig // private.polybar;
     };
   };
 }
