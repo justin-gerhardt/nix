@@ -46,6 +46,7 @@ in {
   };
 
   programs.adb.enable = true;
+  programs.ssh.startAgent = true;
 
   users.users.justin.extraGroups = [ "wireshark" "adbusers" ];
   fonts.fonts = with pkgs; [ source-code-pro font-awesome unifont siji ];
