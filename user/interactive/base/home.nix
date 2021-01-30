@@ -10,6 +10,12 @@ in {
     Install.WantedBy = [ "default.target" ];
   };
 
+  systemd.user.services.add-ssh-key = {
+    Unit.Description = "Add SSH Key";
+    Unit.After = [ "ssh-agent.service" ];
+    Service.ExecStart = "${pkgs.openssh}/bin/ssh-add /home/justin/.ssh/justin.key";
+    Install.WantedBy = [ "default.target" ];
+  };
 
   imports = [
     ./i3.nix
