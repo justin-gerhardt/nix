@@ -111,6 +111,41 @@ let
         sha256 = "13fvv7g1ignky8yf48xykyhj1mxsrqdy4jn78n9l0d47hfmsc3q6";
       }
 
+      {
+        publisher = "redhat";
+        name = "java";
+        version = "0.75.0";
+        sha256 = "0angi2c22bqni7cymcsxsvr2p4735xa204f00153i2xmsnfw4y3i";
+      }
+
+      {
+        publisher = "vscjava";
+        name = "vscode-java-debug";
+        version = "0.31.0";
+        sha256 = "0gdk0y2ckqwccvcz50c7954kzlbmz21khr2v5ks4waqskjv5viry";
+      }
+
+      {
+        publisher = "vscjava";
+        name = "vscode-maven";
+        version = "0.27.1";
+        sha256 = "0f3cq09hjds3rrpbyijm4z1fwy92l62cdbr8nkb3sayjxskci39q";
+      }
+
+      {
+        publisher = "vscjava";
+        name = "vscode-java-dependency";
+        version = "0.18.0";
+        sha256 = "0prd2j01j23a8rfdiw47idf1hq6lx07zqjwfpc2rbclzx18sz58n";
+      }
+
+      {
+        publisher = "VisualStudioExptTeam";
+        name = "vscodeintellicode";
+        version = "1.2.11";
+        sha256 = "057szin28d4sz18b1232xjhf5jjnw2574q34vs3npblhc1jb5y3p";
+      }
+
     ];
 
 in pkgs.symlinkJoin {
