@@ -3,16 +3,16 @@ with pkgs;
 let private = (import ../../private).spotify-scaler;
 in rustPlatform.buildRustPackage rec {
   pname = "spotify-scaler";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = pkgs.fetchFromGitHub {
     owner = "justin-gerhardt";
     repo = pname;
-    rev = "651f212f273e785d4335e2e97b9c76c37cb1d0a9";
-    sha256 = "1qn8c4wwnibs91pnnay6i7rbjbndsglazw753qqjfskybwgqjqdf";
+    rev = "86034ab3118a7912e8019d14415228d3b94bc08f";
+    sha256 = "13zwxhm4jhx7mzrx9j88r0nkjc6s9gzph19bp05hakmxqds03kc2";
   };
 
-  cargoSha256 = "0dhcz6ix24q1qqr30ywb2wnxpkbqwcjq2zm0c375f0y99067mp3k";
+  cargoSha256 = "0as47hg93p0l09x2cb2r402kpds54ix1nc1zbslr0s1yqb62dgnm";
   verifyCargoDeps = true;
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ openssl makeWrapper ];
