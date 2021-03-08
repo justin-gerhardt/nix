@@ -13,7 +13,9 @@ in {
   systemd.user.services.add-ssh-key = {
     Unit.Description = "Add SSH Key";
     Unit.After = [ "ssh-agent.service" ];
+    Unit.Requires = [ "ssh-agent.service" ];
     Service.ExecStart = "${pkgs.openssh}/bin/ssh-add /home/justin/.ssh/justin.key";
+    Service.Environment = "SSH_AUTH_SOCK=%t/ssh-agent";
     Install.WantedBy = [ "default.target" ];
   };
 
