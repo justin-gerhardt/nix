@@ -32,7 +32,6 @@ in {
     mbuffer
     gitkraken
 
-
     #dev tools
     nodejs
     pipenv
@@ -41,7 +40,8 @@ in {
     lldb
     gnumake
     (php73.withExtensions ({ enabled, all }:
-      enabled ++ [ all.xdebug (callPackage ./php-dbus.nix { }) ]))
+      enabled
+      ++ [ (callPackage ./xdebug.nix { }) (callPackage ./php-dbus.nix { }) ]))
     php73Packages.composer
     cargo
     rustfmt
