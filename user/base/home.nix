@@ -38,7 +38,6 @@ in {
     pipenv
     python38
     gdb
-    gcc
     lldb
     gnumake
     (php73.withExtensions ({ enabled, all }:

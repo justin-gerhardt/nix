@@ -19,7 +19,6 @@ in {
   nix.trustedUsers = [ "root" "justin" ];
   services.printing.enable = true;
   nixpkgs.config.allowUnfree = true;
-
   security.sudo.wheelNeedsPassword = false;
   time.timeZone = "America/Toronto";
 
@@ -60,6 +59,7 @@ in {
     # virtualbox.host.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [jdk gcc binutils-unwrapped];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
