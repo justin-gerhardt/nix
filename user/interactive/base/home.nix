@@ -53,6 +53,8 @@ in {
     anydesk
     steam
     jetbrains.phpstorm
+    gnupg
+    gimp
 
     burpsuite
     charles
