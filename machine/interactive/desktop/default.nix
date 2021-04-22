@@ -48,5 +48,6 @@
     options = [ "x-systemd.automount" "noauto" ];
   };
 
+  virtualisation.virtualbox.host.enable = true;
 }
 
