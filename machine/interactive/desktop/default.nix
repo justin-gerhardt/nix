@@ -11,7 +11,7 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     useDHCP = false;
-    interfaces.enp4s0.useDHCP = true;
+    interfaces.enp5s0.useDHCP = true;
 
   };
 
