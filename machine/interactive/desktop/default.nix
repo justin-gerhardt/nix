@@ -16,10 +16,11 @@
   };
 
   hardware.opengl.enable = true;
-  environment.variables.VK_ICD_FILENAMES =
-    "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
+  # environment.variables.VK_ICD_FILENAMES =
+  #   "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
   hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [ pkgs.rocm-opencl-icd pkgs.amdvlk ];
+  # hardware.opengl.extraPackages = [ pkgs.rocm-opencl-icd pkgs.amdvlk ];
+  hardware.opengl.extraPackages = [ pkgs.rocm-opencl-icd ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_5_9;
