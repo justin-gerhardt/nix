@@ -24,7 +24,8 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
 
-  services.xserver.xrandrHeads = [ "DP-1" "HDMI-1" ];
+  services.xserver.xrandrHeads = [ "DisplayPort-1" "DisplayPort-0" ];
+  # services.xserver.xrandrHeads = [ "DP-2" "DP-1" ];
 
   # systemd.services.zfs-import-mediaPool.serviceConfig.RequiresMountsFor =
   #   /root/zfs/mediakey;
