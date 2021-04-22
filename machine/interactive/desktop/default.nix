@@ -21,7 +21,8 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = [ pkgs.rocm-opencl-icd pkgs.amdvlk ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_5_9;
   # boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
 
   services.xserver.xrandrHeads = [ "DisplayPort-1" "DisplayPort-0" ];
