@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
-let
-  private = import ../../private;
+let private = import ../../private;
 in {
   imports = [ /etc/nixos/hardware-configuration.nix ../../user/base ];
 
@@ -41,7 +40,7 @@ in {
     mutableUsers = false;
     users.justin = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [ "wheel" "docker" "scanner" "lp" ];
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDa2e6APkYYp8n4Pw20krw8ypsHtVs0T1sR6KfCxRw4+wX/ZPla+fXOSiN4prIASSmMGlkqgOED80SMKXQLqa7FjTtGUEwfpJO2SrJQJH68uGKOyBWna3aSIMRXmb0OOTmgCiZbh1+Xp5e5aWF0FSP136f3YaO1ApLqjuwc1lgmrKQQA0DRknW6git6Q+4GvbUbqeFFP+zHcQ1AMaqYBI3Nyut9PMKw4mIvol8DmDNpkunkA8nwI6Iec33gzxhOxFSRNYJhdp2ZfYndtMzjbE6vHpwQ7wHOZ8xlfQy2N7BGd3sZH2M6vGIh5yTfo4Y+26cgVOdGPdmtSYucx15D7p9hhbK8qXh+26GY8y53jIKT5ReFT6T8wt3lLOxJYNduc7+O0I+RWGOy0yZtySz0Gyvx2W3BsCOU34xMbJmHdvsNVXOvD/2vS0AtuqkYv9ox+dnXaIIhexKfoxYrdpMiTXHI557IDIUr4SUPjAMHHIfsFGYvn+IyvghvDYZE0RZgOAs= justin@gerhardt-laptop"
@@ -59,7 +58,20 @@ in {
     # virtualbox.host.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [jdk gcc binutils-unwrapped];
+  hardware.sane = {
+    enable = true;
+    brscan4 = {
+      enable = true;
+      netDevices = {
+        home = {
+          model = "HL-L2390DW";
+          ip = "192.168.0.101";
+        };
+      };
+    };
+  };
+
+  environment.systemPackages = with pkgs; [ jdk gcc binutils-unwrapped ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
