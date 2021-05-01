@@ -29,6 +29,7 @@
     users.docker-media = {
       uid = 973;
       group = "docker-media";
+      isSystemUser = true;
     };
     groups.docker-media = { gid = 973; };
   };
