@@ -56,6 +56,7 @@ in {
     gnupg
     gimp
 
+    freecad
     burpsuite
     charles
 
