@@ -1,12 +1,12 @@
-{ stdenv, buildEnv }:
+{ buildEnv, lib, pkgs }:
 let
-  nixpkgs = builtins.fetchTarball {
-    url =
-      "https://github.com/NixOS/nixpkgs/archive/871ca2455a75af983dafa16a01de3df09e15c497.tar.gz";
-    sha256 = "0fyv7c8npba6j2yzh614p97xmwa9d3a3hshlknpmjvznwx8kh05w";
-  };
+  # nixpkgs = builtins.fetchTarball {
+  #   url =
+  #     "https://github.com/NixOS/nixpkgs/archive/871ca2455a75af983dafa16a01de3df09e15c497.tar.gz";
+  #   sha256 = "0fyv7c8npba6j2yzh614p97xmwa9d3a3hshlknpmjvznwx8kh05w";
+  # };
 
-  pkgs = import nixpkgs { config = { allowUnfree = true; }; };
+  # pkgs = import nixpkgs { config = { allowUnfree = true; }; };
 
   vscodeExtensions = with pkgs.vscode-extensions;
     [
@@ -158,7 +158,7 @@ in pkgs.symlinkJoin {
   buildInputs = [ pkgs.makeWrapper ];
   postBuild = ''
     wrapProgram $out/bin/code --prefix PATH ":" ${
-      stdenv.lib.makeBinPath [ pkgs.nixfmt ]
+      lib.makeBinPath [ pkgs.nixfmt ]
     }
   '';
 }
