@@ -14,6 +14,8 @@ in {
     package = (lockedPkgs.modifiedPkgs.callPackage ./pulseaudio { });
   };
 
+  users.users.justin.shell = pkgs.fish;
+
   services = {
     xserver = {
       libinput.enable = true;
