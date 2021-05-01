@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, stdenv }:
+{ pkgs ? import <nixpkgs> { } }:
 with pkgs;
 let private = (import ../../private).spotify-scaler;
 in rustPlatform.buildRustPackage rec {
@@ -18,7 +18,7 @@ in rustPlatform.buildRustPackage rec {
   buildInputs = [ openssl makeWrapper ];
   propagatedBuildInputs = [ ffmpeg ];
   postInstall = ''
-    wrapProgram $out/bin/spotify-scaler --prefix PATH ":" ${stdenv.lib.makeBinPath [ ffmpeg ]} --set-default WEB_CLIENT_ID '${private.clientId}' --set-default WEB_CLIENT_SECRET '${private.clientSecret}' --set-default SPOTIFY_USERNAME '${private.username}' --set-default SPOTIFY_PASSWORD '${private.password}'
+    wrapProgram $out/bin/spotify-scaler --prefix PATH ":" ${lib.makeBinPath [ ffmpeg ]} --set-default WEB_CLIENT_ID '${private.clientId}' --set-default WEB_CLIENT_SECRET '${private.clientSecret}' --set-default SPOTIFY_USERNAME '${private.username}' --set-default SPOTIFY_PASSWORD '${private.password}'
   '';
 
 }
