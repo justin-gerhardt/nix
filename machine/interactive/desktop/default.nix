@@ -41,6 +41,9 @@
     groups.docker-media = { gid = 973; };
   };
 
+  virtualisation.docker.extraOptions =
+    "-s devicemapper --storage-opt dm.basesize=500G --storage-opt dm.loopdatasize=400G";
+
   # steam
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
