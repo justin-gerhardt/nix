@@ -14,13 +14,15 @@ in {
     Unit.Description = "Add SSH Key";
     Unit.After = [ "ssh-agent.service" ];
     Unit.Requires = [ "ssh-agent.service" ];
-    Service.ExecStart = "${pkgs.openssh}/bin/ssh-add /home/justin/.ssh/justin.key";
+    Service.ExecStart =
+      "${pkgs.openssh}/bin/ssh-add /home/justin/.ssh/justin.key";
     Service.Environment = "SSH_AUTH_SOCK=%t/ssh-agent";
     Install.WantedBy = [ "default.target" ];
   };
 
   imports = [
     ./i3.nix
+    #  ./awesome.nix
     ./polybar.nix
     ./wallpaper
     ./kicad.nix
@@ -34,7 +36,7 @@ in {
   gerhardt.polybar.enable = true;
 
   home.packages = with pkgs; [
-     #dbus debug
+    #dbus debug
     bustle
     dfeet
 
@@ -53,10 +55,17 @@ in {
     anydesk
     steam
     jetbrains.phpstorm
+    jetbrains.idea-community
+    jetbrains.datagrip
+
     gnupg
     gimp
 
+    phantomjs2
+    protobuf
+
     freecad
+
     burpsuite
     charles
 
@@ -66,7 +75,9 @@ in {
 
     slack
     postman
-   
+
+    openocd
+
     (callPackage ./zfsbackup { pkgs = lockedPkgs.newPkgs; })
 
   ];
