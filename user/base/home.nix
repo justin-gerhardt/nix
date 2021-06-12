@@ -39,10 +39,10 @@ in {
     gdb
     lldb
     gnumake
-    (php73.withExtensions ({ enabled, all }:
+    (php74.withExtensions ({ enabled, all }:
       enabled
       ++ [ (callPackage ./xdebug.nix { }) (callPackage ./php-dbus.nix { }) ]))
-    php73Packages.composer
+    php74Packages.composer
     cargo
     rustfmt
 

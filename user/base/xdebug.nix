@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { } }:
-pkgs.php73.buildPecl rec {
+pkgs.php74.buildPecl rec {
   pname = "xdebug";
 
   version = "3.0.2";
