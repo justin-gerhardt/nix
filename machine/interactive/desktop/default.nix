@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
-
-{
+let private = import ../../../private;
+in {
   imports = [ ../../../user/interactive/desktop ../base ./backup ];
 
   networking = {
@@ -56,5 +56,7 @@
   };
 
   virtualisation.virtualbox.host.enable = true;
+
+  services.openvpn.servers = { workVPN = private.workVPN; };
 }
 
