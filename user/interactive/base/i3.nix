@@ -34,7 +34,18 @@ in {
 
         fonts = [ "DejaVu Sans Mono, FontAwesome 7" ];
         bars = [ ];
-        modes = { };
+        modes = {
+          resize = {
+            "Left" = "resize shrink width 10 px or 10 ppt";
+            "Down" = "resize grow height 10 px or 10 ppt";
+            "Up" = "resize shrink height 10 px or 10 ppt";
+            "Right" = "resize grow width 10 px or 10 ppt";
+            "Escape" = "mode default";
+            "Return" = "mode default";
+            "${mod}+r" = "mode default";
+
+          };
+        };
         keybindings = {
 
           "${mod}+d" = "exec ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop";
@@ -50,13 +61,23 @@ in {
           "XF86MonBrightnessDown" = "exec xbacklight -dec 10";
 
           "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86AudioRaiseVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%";
-          "XF86AudioLowerVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%";
+          "XF86AudioRaiseVolume" =
+            "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%";
+          "XF86AudioLowerVolume" =
+            "exec pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%";
 
-          "XF86AudioStop" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify stop";
-          "XF86AudioNext" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify next";
-          "XF86AudioPrev" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify previous";
-          "XF86AudioPlay" =  "exec ${lib.makeBinPath [ pkgs.playerctl ]}/playerctl --player=spotify play-pause";
+          "XF86AudioStop" = "exec ${
+              lib.makeBinPath [ pkgs.playerctl ]
+            }/playerctl --player=spotify stop";
+          "XF86AudioNext" = "exec ${
+              lib.makeBinPath [ pkgs.playerctl ]
+            }/playerctl --player=spotify next";
+          "XF86AudioPrev" = "exec ${
+              lib.makeBinPath [ pkgs.playerctl ]
+            }/playerctl --player=spotify previous";
+          "XF86AudioPlay" = "exec ${
+              lib.makeBinPath [ pkgs.playerctl ]
+            }/playerctl --player=spotify play-pause";
 
           "${mod}+Shift+r" = "restart";
 
@@ -87,6 +108,11 @@ in {
           "${mod}+Shift+7" = "workspace number 7";
           "${mod}+Shift+8" = "workspace number 8";
           "${mod}+Shift+9" = "workspace number 9";
+
+          "${mod}+h" = "split h";
+          "${mod}+g" = "split v";
+
+          "${mod}+r" = "mode resize";
 
         };
 
