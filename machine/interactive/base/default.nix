@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
-let
-  lockedPkgs = (import ../../base/lockedpkgs.nix { inherit pkgs; });
+let lockedPkgs = (import ../../base/lockedpkgs.nix { inherit pkgs; });
 in {
   imports = [ ../../../user/interactive/base ../../base ];
 
